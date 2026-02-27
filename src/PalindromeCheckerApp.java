@@ -2,7 +2,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
-
+import java.util.Queue;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the Palindrome Checker Management System");
@@ -88,6 +88,32 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Stack Method).");
         } else {
             System.out.println(text + " is NOT a Palindrome (Stack Method).");
+        }
+
+
+        //Queue and Stack Based Method
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> astack = new Stack<>();
+
+        for (char c : text.toCharArray()) {
+            queue.add(c);
+            astack.push(c);
+        }
+
+        isPalindrome = true;
+
+        while (!queue.isEmpty()) {
+            if (Character.toLowerCase(queue.remove()) !=
+                    Character.toLowerCase(astack.pop())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Queue + Stack Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Queue + Stack Method).");
         }
         scanner.close();
     }
