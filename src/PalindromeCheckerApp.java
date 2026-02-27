@@ -42,8 +42,26 @@ public class PalindromeCheckerApp {
         if (text.toLowerCase().equals(reverse.toLowerCase())) {
             System.out.println(text + " is a Palindrome String.");
         } else {
-            System.out.println(text + " is not a Palindrome String.");
-            scanner.close();
+            System.out.println(text + " is not a Palindrome String.");}
+
+
+        char[] chars = text.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+        isPalindrome = true;
+        while (start < end) {
+            if (Character.toLowerCase(chars[start]) != Character.toLowerCase(chars[end])) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Character Array Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Character Array Method).");
+        }
+        scanner.close();
     }
 }
