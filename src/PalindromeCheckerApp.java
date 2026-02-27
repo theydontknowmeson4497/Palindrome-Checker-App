@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.Queue;
+import java.util.ArrayDeque;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the Palindrome Checker Management System");
@@ -114,6 +115,26 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Queue + Stack Method).");
         } else {
             System.out.println(text + " is NOT a Palindrome (Queue + Stack Method).");
+        }
+
+
+        //Array-Deque based method
+        Deque<Character> adeque = new ArrayDeque<>();
+        for (char c : text.toCharArray()) {
+            adeque.addLast(c);
+        }
+        isPalindrome = true;
+        while (adeque.size() > 1) {
+            if (Character.toLowerCase(adeque.removeFirst()) !=
+                    Character.toLowerCase(adeque.removeLast())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Optimized Deque Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Optimized Deque Method).");
         }
         scanner.close();
     }
