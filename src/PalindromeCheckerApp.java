@@ -1,6 +1,7 @@
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
@@ -14,6 +15,8 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String text = scanner.nextLine();
 
+
+        //Hardcoded Deque Method
         Deque<Character> deque = new LinkedList<>();
 
         for (int i = 0; i < text.length(); i++) {
@@ -34,6 +37,9 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("The string \"" + text + "\" is NOT a palindrome.");
         }
+
+
+        //Reversing the String Method
         int strLength = text.length();
         String reverse = "";
         for (int i = (strLength - 1); i >= 0; --i) {
@@ -45,6 +51,7 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is not a Palindrome String.");}
 
 
+        //Character Array Method
         char[] chars = text.toCharArray();
         int start = 0;
         int end = chars.length - 1;
@@ -61,6 +68,26 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Character Array Method).");
         } else {
             System.out.println(text + " is NOT a Palindrome (Character Array Method).");
+        }
+
+
+        //Stack-Based Method
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : text.toCharArray()) {
+            stack.push(c);
+        }
+        isPalindrome = true;
+        for (char c : text.toCharArray()) {
+            if (Character.toLowerCase(c) != Character.toLowerCase(stack.pop())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Stack Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Stack Method).");
         }
         scanner.close();
     }
