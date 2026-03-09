@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.ArrayDeque;
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the Palindrome Checker Management System");
@@ -49,7 +50,8 @@ public class PalindromeCheckerApp {
         if (text.toLowerCase().equals(reverse.toLowerCase())) {
             System.out.println(text + " is a Palindrome String.(Reversing the String Method)");
         } else {
-            System.out.println(text + " is not a Palindrome String.(Reversing the String Method");}
+            System.out.println(text + " is not a Palindrome String.(Reversing the String Method");
+        }
 
 
         //Character Array Method
@@ -104,8 +106,7 @@ public class PalindromeCheckerApp {
         isPalindrome = true;
 
         while (!queue.isEmpty()) {
-            if (Character.toLowerCase(queue.remove()) !=
-                    Character.toLowerCase(astack.pop())) {
+            if (Character.toLowerCase(queue.remove()) != Character.toLowerCase(astack.pop())) {
                 isPalindrome = false;
                 break;
             }
@@ -124,8 +125,7 @@ public class PalindromeCheckerApp {
         }
         isPalindrome = true;
         while (adeque.size() > 1) {
-            if (Character.toLowerCase(adeque.removeFirst()) !=
-                    Character.toLowerCase(adeque.removeLast())) {
+            if (Character.toLowerCase(adeque.removeFirst()) != Character.toLowerCase(adeque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
@@ -149,6 +149,25 @@ public class PalindromeCheckerApp {
                 break;
             }
         }
+
+
+        //Recursive Palindrome Checker
+        boolean isRecursivePalindrome = check(text, 0, text.length() - 1);
+        if (isRecursivePalindrome) {
+            System.out.println(text + " is a Palindrome (Recursive Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Recursive Method).");
+        }
         scanner.close();
+    }
+
+    private static boolean check(String s, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        if (Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) {
+            return false;
+        }
+        return check(s, start + 1, end - 1);
     }
 }
