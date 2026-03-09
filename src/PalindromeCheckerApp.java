@@ -34,9 +34,9 @@ public class PalindromeCheckerApp {
         }
 
         if (isPalindrome) {
-            System.out.println("The string \"" + text + "\" is a palindrome.");
+            System.out.println("The string \"" + text + "\" is a palindrome.(Hardcoded - Deque Method");
         } else {
-            System.out.println("The string \"" + text + "\" is NOT a palindrome.");
+            System.out.println("The string \"" + text + "\" is NOT a palindrome.(Hardcoded -Deque Method");
         }
 
 
@@ -47,9 +47,9 @@ public class PalindromeCheckerApp {
             reverse = reverse + text.charAt(i);
         }
         if (text.toLowerCase().equals(reverse.toLowerCase())) {
-            System.out.println(text + " is a Palindrome String.");
+            System.out.println(text + " is a Palindrome String.(Reversing the String Method)");
         } else {
-            System.out.println(text + " is not a Palindrome String.");}
+            System.out.println(text + " is not a Palindrome String.(Reversing the String Method");}
 
 
         //Character Array Method
@@ -110,7 +110,6 @@ public class PalindromeCheckerApp {
                 break;
             }
         }
-
         if (isPalindrome) {
             System.out.println(text + " is a Palindrome (Queue + Stack Method).");
         } else {
@@ -135,6 +134,20 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Optimized Deque Method).");
         } else {
             System.out.println(text + " is NOT a Palindrome (Optimized Deque Method).");
+        }
+
+
+        //Linked List Based Method
+        LinkedList<Character> list = new LinkedList<>();
+        for (char ch : text.toCharArray()) {
+            list.add(ch);
+        }
+        boolean isPalindromee = true;
+        while (list.size() > 1) {
+            if (!list.removeFirst().equals(list.removeLast())) {
+                isPalindromee = false;
+                break;
+            }
         }
         scanner.close();
     }
