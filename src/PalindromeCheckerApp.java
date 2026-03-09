@@ -6,6 +6,15 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
+    private static boolean check(String s, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        if (Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) {
+            return false;
+        }
+        return check(s, start + 1, end - 1);
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to the Palindrome Checker Management System");
         System.out.println("Version 1.0");
@@ -35,9 +44,9 @@ public class PalindromeCheckerApp {
         }
 
         if (isPalindrome) {
-            System.out.println("The string \"" + text + "\" is a palindrome.(Hardcoded - Deque Method");
+            System.out.println("The string \"" + text + "\" is a palindrome.(Hardcoded - Deque Method)");
         } else {
-            System.out.println("The string \"" + text + "\" is NOT a palindrome.(Hardcoded -Deque Method");
+            System.out.println("The string \"" + text + "\" is NOT a palindrome.(Hardcoded -Deque Method)mada");
         }
 
 
@@ -158,16 +167,22 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(text + " is NOT a Palindrome (Recursive Method).");
         }
-        scanner.close();
-    }
 
-    private static boolean check(String s, int start, int end) {
-        if (start >= end) {
-            return true;
+
+        // Case-Insensitive & Space-Ignored Palindrome
+        String normalized = text.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        boolean isNormalizedPalindrome = true;
+        for (int i = 0; i < normalized.length() / 2; i++) {
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isNormalizedPalindrome = false;
+                break;
+            }
         }
-        if (Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) {
-            return false;
+        if (isNormalizedPalindrome) {
+            System.out.println("\"" + text + "\" is a Palindrome (Normalized Method).");
+        } else {
+            System.out.println("\"" + text + "\" is NOT a Palindrome (Normalized Method).");
         }
-        return check(s, start + 1, end - 1);
+        scanner.close();
     }
 }
