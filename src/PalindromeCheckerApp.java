@@ -6,6 +6,65 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
+    private static Object text;
+
+    public interface PalindromeStrategy {
+        boolean isPalindrome(String s);
+    }
+
+    public static class StackStrategy implements PalindromeStrategy {
+        public boolean isPalindrome(String s) {
+            String cleanString = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); // Normalize input
+            Stack<Character> stack = new Stack<>();
+            for (char c : cleanString.toCharArray()) {
+                stack.push(c);
+            }
+
+            StringBuilder reversedString = new StringBuilder();
+            while (!stack.isEmpty()) {
+                reversedString.append(stack.pop());
+            }
+
+            return cleanString.equals(reversedString.toString());
+        }
+    }
+
+    public static class DequeStrategy implements PalindromeStrategy {
+        @Override
+        public boolean isPalindrome(String s) {
+            String cleanString = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); // Normalize input
+            Deque<Character> deque = new ArrayDeque<>();
+            for (char c : cleanString.toCharArray()) {
+                deque.addLast(c);
+            }
+
+            while (deque.size() > 1) {
+                if (deque.removeFirst() != deque.removeLast()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    public static class PalindromeCheckerContext {
+        private PalindromeStrategy strategy;
+
+        public PalindromeCheckerContext(PalindromeStrategy strategy) {
+            this.strategy = strategy;
+        }
+
+        // Method to dynamically change the strategy at runtime (setter injection)
+        public void setStrategy(PalindromeStrategy strategy) {
+            this.strategy = strategy;
+        }
+
+        public boolean checkPalindrome(String s) {
+            // Delegate the task to the currently set strategy
+            return strategy.isPalindrome(s);
+        }
+    }
+
     static class PalindromeService {
         public boolean checkPalindrome(String input) {
             int start = 0;
@@ -21,6 +80,7 @@ public class PalindromeCheckerApp {
             return true;
         }
     }
+
     private static boolean check(String s, int start, int end) {
         if (start >= end) {
             return true;
@@ -30,6 +90,7 @@ public class PalindromeCheckerApp {
         }
         return check(s, start + 1, end - 1);
     }
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Palindrome Checker Management System");
         System.out.println("Version 1.0");
@@ -200,13 +261,24 @@ public class PalindromeCheckerApp {
         }
 
 
-
         PalindromeService service = new PalindromeService();
         if (service.checkPalindrome(text)) {
             System.out.println(text + " is a Palindrome (OOPS Service Method).");
         } else {
             System.out.println(text + " is NOT a Palindrome (OOPS Service Method).");
         }
+
+
+        //Advanced Strategy Method
+        PalindromeCheckerContext context = new PalindromeCheckerContext(new StackStrategy());
+        boolean isPal1 = context.checkPalindrome(text);
+        System.out.println("Using Stack Strategy: \"" + text + "\" is palindrome? " + isPal1);
+        context.setStrategy(new DequeStrategy());
+        boolean isPal2 = context.checkPalindrome(text);
+        System.out.println("Using Deque Strategy: \"" + text + "\" is palindrome? " + isPal2);
+        String testString2 = "hello";
+        boolean isPal3 = context.checkPalindrome(testString2);
+        System.out.println("Using Deque Strategy: \"" + testString2 + "\" is palindrome? " + isPal3);
         scanner.close();
     }
 }
