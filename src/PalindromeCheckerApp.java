@@ -6,6 +6,21 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
+    static class PalindromeService {
+        public boolean checkPalindrome(String input) {
+            int start = 0;
+            int end = input.length() - 1;
+
+            while (start < end) {
+                if (Character.toLowerCase(input.charAt(start)) != Character.toLowerCase(input.charAt(end))) {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+            return true;
+        }
+    }
     private static boolean check(String s, int start, int end) {
         if (start >= end) {
             return true;
@@ -182,6 +197,15 @@ public class PalindromeCheckerApp {
             System.out.println("\"" + text + "\" is a Palindrome (Normalized Method).");
         } else {
             System.out.println("\"" + text + "\" is NOT a Palindrome (Normalized Method).");
+        }
+
+
+
+        PalindromeService service = new PalindromeService();
+        if (service.checkPalindrome(text)) {
+            System.out.println(text + " is a Palindrome (OOPS Service Method).");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (OOPS Service Method).");
         }
         scanner.close();
     }
