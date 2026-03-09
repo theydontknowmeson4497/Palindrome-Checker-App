@@ -279,6 +279,19 @@ public class PalindromeCheckerApp {
         String testString2 = "hello";
         boolean isPal3 = context.checkPalindrome(testString2);
         System.out.println("Using Deque Strategy: \"" + testString2 + "\" is palindrome? " + isPal3);
+
+
+        //Performance Comparison Method
+        context.setStrategy(new DequeStrategy());
+        long start1 = System.nanoTime();
+        context.checkPalindrome (text);
+        long time1 = System.nanoTime() - start1;
+        context.setStrategy(new StackStrategy());
+        long start2 = System.nanoTime();
+        context.checkPalindrome (text);
+        long time2 = System.nanoTime() - start2;
+        System.out.println("Deque-Strategy (ns): " + time1);
+        System.out.println("Stack-Strategy (ns): " + time2);
         scanner.close();
     }
 }
